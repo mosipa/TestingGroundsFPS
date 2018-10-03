@@ -13,11 +13,5 @@ UCLASS()
 class TESTINGGROUNDFPS_API APatrollingGuard : public ATP_ThirdPersonCharacter
 {
 	GENERATED_BODY()
-	
-private:
-	UPROPERTY(EditAnywhere, Category = "Patrol Route")
-		TArray<AActor*> PatrolPoints;
-public:
-	UFUNCTION(BlueprintCallable)
-		TArray<AActor*> GetPatrolPoints();
+
 };
