@@ -3,7 +3,6 @@
 #include "ChooseNextWaypoint.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Classes/AIController.h"
-#include "PatrollingGuard.h"
 #include "PatrolPointComponent.h"
 
 EBTNodeResult::Type UChooseNextWaypoint::ExecuteTask(UBehaviorTreeComponent & OwnerComp, uint8 * NodeMemory)
@@ -21,7 +20,7 @@ EBTNodeResult::Type UChooseNextWaypoint::ExecuteTask(UBehaviorTreeComponent & Ow
 
 void UChooseNextWaypoint::GetPatrolPoints(UBehaviorTreeComponent& OwnerComp)
 {
-	auto BTOwner = Cast<APatrollingGuard>(Cast<AAIController>(OwnerComp.GetOwner())->GetPawn());
+	auto BTOwner = Cast<AAIController>(OwnerComp.GetOwner())->GetPawn();
 	auto PPComponent = BTOwner->GetComponentByClass(UPatrolPointComponent::StaticClass());
 	if (!PPComponent) { UE_LOG(LogTemp, Warning, TEXT("PPC not found")); return; }
 
