@@ -94,5 +94,10 @@ public:
 	/** Returns FirstPersonCameraComponent subobject **/
 	FORCEINLINE class UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+		TSubclassOf<class AGun> GunBlueprint;
+
+private:
+	class AGun* Gun;
 };
 
