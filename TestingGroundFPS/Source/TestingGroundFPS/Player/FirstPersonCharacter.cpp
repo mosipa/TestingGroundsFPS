@@ -55,6 +55,7 @@ void AFirstPersonCharacter::BeginPlay()
 	if (!GunBlueprint) { return; }
 	Gun = GetWorld()->SpawnActor<AGun>(GunBlueprint);
 	Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
+	Gun->AnimInstance = Mesh1P->GetAnimInstance();
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -65,12 +66,17 @@ void AFirstPersonCharacter::SetupPlayerInputComponent(class UInputComponent* Pla
 	// set up gameplay key bindings
 	check(PlayerInputComponent);
 
+	if (!(this->HasActorBegunPlay()))
+	{
+		this->DispatchBeginPlay();
+	}
+
 	// Bind jump events
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 
 	// Bind fire event
-	//PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AFirstPersonCharacter::OnFire);
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, Gun, &AGun::OnFire);
 
 	// Enable touchscreen input
 	EnableTouchscreenMovement(PlayerInputComponent);
